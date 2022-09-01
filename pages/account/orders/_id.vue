@@ -159,17 +159,6 @@
                   <p class="pt-2 font-semibold">
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
-                  <a
-                    :download="item.product.name"
-                    :href="getUrl(item.product.name)"
-                  >
-                    <BaseButton
-                      v-if="order.status === 'complete'"
-                      fit="auto"
-                      appearance="light"
-                      label="Download"
-                    />
-                  </a>
                 </div>
               </div>
             </div>
@@ -435,7 +424,6 @@
 <script>
 // Helpers
 import padStart from 'lodash/padStart';
-import AWS from 'aws-sdk';
 
 export default {
   name: 'Order',
@@ -492,30 +480,6 @@ export default {
         default:
           return '';
       }
-    },
-  },
-
-  methods: {
-    getUrl(prodName) {
-      AWS.config.update({
-        accessKeyId: 'AKIAXENWTOFB5SXIAQGK',
-        secretAccessKey: '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',
-        region: 'us-west-1',
-        signatureVersion: 'v4',
-      });
-
-      const s3 = new AWS.S3();
-      const myBucket = 'madeforlifemusicuswest';
-      const myKey = prodName + '.zip';
-      const timelimit = 60 * 15;
-
-      const url = s3.getSignedUrl('getObject', {
-        Bucket: myBucket,
-        Key: myKey,
-        Expires: timelimit,
-      });
-
-      return url;
     },
   },
 };

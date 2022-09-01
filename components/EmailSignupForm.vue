@@ -118,7 +118,11 @@ export default {
             this.email = this.$t('emailSignup.success');
           }
         } catch (err) {
-          this.$sentry?.captureException(err);
+          if (this.isDev) {
+            console.log(err);
+          } else {
+            this.$sentry?.captureException(err);
+          }
           this.status = 'ERROR';
           this.errors = [err];
         }
