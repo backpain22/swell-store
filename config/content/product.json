@@ -39,6 +39,13 @@
       ]
     },
     {
+      "id": "description",
+      "label": "Description text",
+      "type": "rich_html",
+      "required": false,
+      "localized": true
+    },
+    {
       "id": "enable_social_sharing",
       "label": "Enable social sharing",
       "type": "toggle"
