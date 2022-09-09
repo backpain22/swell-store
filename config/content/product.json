@@ -39,12 +39,6 @@
       ]
     },
     {
-      "id": "player",
-      "label": "music player",
-      "type": "rich_html",
-      "required": false
-    },
-    {
       "id": "enable_social_sharing",
       "label": "Enable social sharing",
       "type": "toggle"
