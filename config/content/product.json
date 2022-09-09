@@ -39,11 +39,10 @@
       ]
     },
     {
-      "id": "description",
-      "label": "Description text",
+      "id": "player",
+      "label": "music player",
       "type": "rich_html",
-      "required": false,
-      "localized": true
+      "required": false
     },
     {
       "id": "enable_social_sharing",
