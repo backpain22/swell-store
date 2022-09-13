@@ -178,7 +178,7 @@ export default {
       couponCode: null,
       shopLink: null,
       couponError: {
-        message: 'The coupon code was not valid',
+        message: 'The coupon code was not valid'
       },
     };
   },
@@ -223,13 +223,13 @@ export default {
     },
 
     async applyDiscount() {
-      const isValid = this.validateCouponCode(this.couponCode);
+      const isValid = this.validateCouponCode(this.couponCode)
 
       if (isValid) {
         // Try to apply a coupon or gift card code
         await this.$store.dispatch('applyDiscount', this.couponCode);
       } else {
-        await this.$store.dispatch('handleError', this.couponError);
+        await this.$store.dispatch('handleError', this.couponError)
       }
       // Reset the coupon input
       this.couponCode = null;

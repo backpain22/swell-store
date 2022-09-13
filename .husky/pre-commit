@@ -1,6 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-added_files=$(git diff --name-only --cached)
-
-npm run lintfix && git add ${added_files}
+npm run lintfix
