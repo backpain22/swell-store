@@ -159,6 +159,17 @@
                   <p class="pt-2 font-semibold">
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
+                  <a
+                    v-if="order.status === 'complete'"
+                    :download="item.product.name"
+                    :href="getUrl(item.product.name)"
+                  >
+                    <BaseButton
+                      fit="auto"
+                      appearance="light"
+                      label="Download"
+                    />
+                  </a>
                 </div>
               </div>
             </div>
@@ -424,6 +435,7 @@
 <script>
 // Helpers
 import padStart from 'lodash/padStart';
+import AWS from 'aws-sdk';
 
 export default {
   name: 'Order',
@@ -480,6 +492,29 @@ export default {
         default:
           return '';
       }
+    },
+  },
+  methods: {
+    getUrl(prodName) {
+      AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: 'us-west-1',
+        signatureVersion: 'v4',
+      });
+
+      const s3 = new AWS.S3();
+      const myBucket = process.env.AWS_S3_BUCKET;
+      const myKey = prodName + '.zip';
+      const timelimit = 60 * 15;
+
+      const url = s3.getSignedUrl('getObject', {
+        Bucket: myBucket,
+        Key: myKey,
+        Expires: timelimit,
+      });
+
+      return url;
     },
   },
 };
