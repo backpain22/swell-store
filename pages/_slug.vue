@@ -67,7 +67,6 @@ export default {
     this.setSections(page);
     this.page = page;
     this.loaded = true;
-
   },
 
   methods: {
