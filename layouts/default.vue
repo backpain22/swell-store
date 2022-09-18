@@ -12,6 +12,7 @@
         :type="notification.type"
       />
       <div class="flex flex-grow flex-col">
+        <h1>{{ myslug($route.path) }}</h1>
         <nuxt keep-alive :keep-alive-props="{ max: 10 }" />
       </div>
       <TheFooter />
@@ -110,6 +111,16 @@ export default {
   },
 
   methods: {
+    myslug(mystring) {
+      const newstring = mystring.replaceAll('/',' ');
+      const newstring2 = newstring.replaceAll('-',' ');
+      if (mystring === /\w*\/\w*/) {
+          return newstring;
+      } else {
+        return newstring2;
+      };
+    },
+
     getCookie(name) {
       const pattern = RegExp(name + '=.[^;]*');
       const matched = document.cookie.match(pattern);
