@@ -49,6 +49,7 @@ export default () => {
      ** Nuxt.js modules
      */
     modules: [
+      ['nuxt-helmet'],
       ['@nuxtjs/gtm'],
 
       // [
