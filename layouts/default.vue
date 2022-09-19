@@ -112,13 +112,13 @@ export default {
 
   methods: {
     myslug(mystring) {
-      const newstring = mystring.replaceAll('/',' ');
-      const newstring2 = newstring.replaceAll('-',' ');
+      const newstring = mystring.replaceAll('/', ' ');
+      const newstring2 = newstring.replaceAll('-', ' ');
       if (mystring === /\w*\/\w*/) {
-          return newstring;
+        return newstring;
       } else {
         return newstring2;
-      };
+      }
     },
 
     getCookie(name) {
