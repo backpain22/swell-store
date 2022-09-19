@@ -49,7 +49,8 @@ export default () => {
      ** Nuxt.js modules
      */
     modules: [
-      ['nuxt-helmet'],
+      'nuxt-helmet',
+      '@nuxtjs/robots',
       ['@nuxtjs/gtm'],
 
       // [
