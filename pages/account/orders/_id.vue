@@ -513,11 +513,10 @@ export default {
        if (xhr.status !== 200) { // analyze HTTP status of the response
           alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
         } else {
-            console.log("response" + xhr.response);
-            console.log("response text" + xhr.responseText)
+
             
-            myurl = xhr.response.url;
-            console.log(myurl);
+            myurl = xhr.responseText;
+   
         }
       };
 
