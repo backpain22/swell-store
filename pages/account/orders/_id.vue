@@ -495,19 +495,19 @@ export default {
     },
   },
   methods: {
-    getUrl(prodName) {
+    getUrl(item) {
       const data = {};
       let myurl = "";
-      data.id = prodName;
+      data.id = item;
       data.type = ".zip";
-      const jsondata = JSON.stringify(data);
+      // const jsondata = JSON.stringify(data);
 
       const xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
 
       xhr.open('GET', process.env.LAMDBA_URL);
 
-      xhr.send(jsondata);
+      xhr.send(data);
 
       xhr.onload = function() {
        if (xhr.status !== 200) { // analyze HTTP status of the response
