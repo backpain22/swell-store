@@ -498,41 +498,18 @@ export default {
     getUrl(item) {
       const data = {};
       const funcurl = process.env.MY_LAMBDA_URL;
-      let myurl = "";
       data.id = item;
       data.type = ".zip";
-      // const jsondata = JSON.stringify(data);
-
-      const xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
-
-      xhr.open('GET', funcurl);
-
-      xhr.send(data);
-
-      xhr.onload = function() {
-       if (xhr.status !== 200) { // analyze HTTP status of the response
-          alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-        } else {
-
-            
-            myurl = xhr.responseText;
-   
-        }
-      };
-
-     // xhr.onprogress = function(event) {
-     //   if (event.lengthComputable) {
-     //     alert(`Received ${event.loaded} of ${event.total} bytes`);
-    //   } else {
-    //      alert(`Received ${event.loaded} bytes`); // no Content-Length
-   //    }
-//
-   //   };
-//
-//      xhr.onerror = function() {
-//       alert("Request failed");
-//    };
+      
+      let response = await fetch(funcurl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data)
+      });
+      
+      const myurl = await response.text();
 
     return myurl;
     },
