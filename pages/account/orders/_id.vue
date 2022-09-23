@@ -497,6 +497,7 @@ export default {
   methods: {
     getUrl(item) {
       const data = {};
+      const funcurl = process.env.MY_LAMBDA_URL;
       let myurl = "";
       data.id = item;
       data.type = ".zip";
@@ -505,7 +506,7 @@ export default {
       const xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
 
-      xhr.open('GET', process.env.LAMDBA_URL);
+      xhr.open('GET', funcurl);
 
       xhr.send(data);
 
