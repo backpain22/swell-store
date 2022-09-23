@@ -451,6 +451,22 @@ export default {
     const order = await this.$swell.account.getOrder(this.$route.params.id);
 
     if (order) this.order = order;
+    
+    const data = {};
+      const funcurl = process.env.MY_LAMBDA_URL;
+      data.id = "The Drip Kit";
+      data.type = ".zip";
+      
+      const myfunc = await fetch(funcurl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data)
+      });
+      const response = await myfunc.text();
+      
+      this.myurl = response;
   },
 
   computed: {
@@ -495,24 +511,8 @@ export default {
     },
   },
   methods: {
-    getUrl(item) {
-      const data = {};
-      const funcurl = process.env.MY_LAMBDA_URL;
-      data.id = item;
-      data.type = ".zip";
-      let myurl = "";
-      
-      fetch(funcurl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(data)
-      });
-        .then(response => response.text())
-        .then(xxx => myurl = xxx); 
-
-    return myurl;
+    getUrl() {
+      return this.myurl;
     },
   },
 };
