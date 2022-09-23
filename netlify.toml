@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "https://madeforlifemusic.com/*"
+  to = "https://www.madeforlifemusic.com/*"
+  status = 301
