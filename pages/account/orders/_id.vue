@@ -162,7 +162,7 @@
                   <a
                     v-if="order.status === 'complete'"
                     :download="item.product.name"
-                    :href="getUrl(item.product.name)"
+                    :href="getUrl()"
                   >
                     <BaseButton
                       fit="auto"
