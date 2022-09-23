@@ -162,7 +162,7 @@
                   <a
                     v-if="order.status === 'complete'"
                     :download="item.product.name"
-                    :href="getUrl("The Drip Kit")"
+                    :href="getUrl(item.product.name)"
                   >
                     <BaseButton
                       fit="auto"
