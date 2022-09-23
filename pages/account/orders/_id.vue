@@ -501,36 +501,34 @@ export default {
       data.id = prodName;
       data.type = ".zip";
       const jsondata = JSON.stringify(data);
-      // 1. Create a new XMLHttpRequest object
+
       const xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
 
-      // 2. Configure it: GET-request for the URL /article/.../load
-      xhr.open('GET', 'https://3n3zloc66scb364bt34wywbg4i0nqrzu.lambda-url.us-west-1.on.aws/');
+      xhr.open('GET', process.env.LAMDBA_URL);
 
-      // 3. Send the request over the network
       xhr.send(jsondata);
 
       xhr.onload = function() {
        if (xhr.status !== 200) { // analyze HTTP status of the response
           alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-        } else { // show the result
+        } else {
             myurl = xhr.responseText;
         }
       };
 
-      xhr.onprogress = function(event) {
-        if (event.lengthComputable) {
-          alert(`Received ${event.loaded} of ${event.total} bytes`);
-       } else {
-          alert(`Received ${event.loaded} bytes`); // no Content-Length
-        }
-
-      };
-
-      xhr.onerror = function() {
-       alert("Request failed");
-    };
+     // xhr.onprogress = function(event) {
+     //   if (event.lengthComputable) {
+     //     alert(`Received ${event.loaded} of ${event.total} bytes`);
+    //   } else {
+    //      alert(`Received ${event.loaded} bytes`); // no Content-Length
+   //    }
+//
+   //   };
+//
+//      xhr.onerror = function() {
+//       alert("Request failed");
+//    };
 
     return myurl;
     },
