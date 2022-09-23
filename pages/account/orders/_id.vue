@@ -500,16 +500,17 @@ export default {
       const funcurl = process.env.MY_LAMBDA_URL;
       data.id = item;
       data.type = ".zip";
+      let myurl = "";
       
-      let response = await fetch(funcurl, {
+      fetch(funcurl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(data)
       });
-      
-      const myurl = await response.text();
+        .then(response => response.text())
+        .then(xxx => myurl = xxx); 
 
     return myurl;
     },
