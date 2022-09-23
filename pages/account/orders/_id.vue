@@ -496,25 +496,43 @@ export default {
   },
   methods: {
     getUrl(prodName) {
-      AWS.config.update({
-        accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
-        region: 'us-west-1',
-        signatureVersion: 'v4',
-      });
+      const data = {};
+      let myurl = "";
+      data.id = prodName;
+      data.type = ".zip";
+      const jsondata = JSON.stringify(data);
+      // 1. Create a new XMLHttpRequest object
+      const xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
 
-      const s3 = new AWS.S3();
-      const myBucket = process.env.AWS_S3_BUCKET;
-      const myKey = prodName + '.zip';
-      const timelimit = 60 * 15;
+      // 2. Configure it: GET-request for the URL /article/.../load
+      xhr.open('GET', 'https://3n3zloc66scb364bt34wywbg4i0nqrzu.lambda-url.us-west-1.on.aws/');
 
-      const url = s3.getSignedUrl('getObject', {
-        Bucket: myBucket,
-        Key: myKey,
-        Expires: timelimit,
-      });
+      // 3. Send the request over the network
+      xhr.send(jsondata);
 
-      return url;
+      xhr.onload = function() {
+       if (xhr.status !== 200) { // analyze HTTP status of the response
+          alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+        } else { // show the result
+            myurl = xhr.responseText;
+        }
+      };
+
+      xhr.onprogress = function(event) {
+        if (event.lengthComputable) {
+          alert(`Received ${event.loaded} of ${event.total} bytes`);
+       } else {
+          alert(`Received ${event.loaded} bytes`); // no Content-Length
+        }
+
+      };
+
+      xhr.onerror = function() {
+       alert("Request failed");
+    };
+
+    return myurl;
     },
   },
 };
