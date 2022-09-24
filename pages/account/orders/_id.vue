@@ -502,14 +502,16 @@ export default {
         region: 'us-west-1',
         signatureVersion: 'v4',
       });
+      
+      export AWS_SDK_LOAD_CONFIG=1;
 
       const s3 = new AWS.S3();
-      const myBucket = process.env.AWS_S3_BUCKET;
+      const myBucket = "madeforlifemusicuswest";
       const myKey = "The Drip Kit.zip";
       const timelimit = 60 * 15;
 
       const url = s3.getSignedUrl('getObject', {
-        Bucket: "madeforlifemusicuswest",
+        Bucket: myBucket,
         Key: myKey,
         Expires: timelimit,
       });
