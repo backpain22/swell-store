@@ -49,9 +49,9 @@ export default () => {
      ** Nuxt.js modules
      */
     modules: [
-      'nuxt-helmet',
+     // 'nuxt-helmet',
       '@nuxtjs/robots',
-      ['nuxt-precompress'],
+    //  ['nuxt-precompress'],
       ['@nuxtjs/gtm'],
 
       // [
@@ -148,7 +148,7 @@ export default () => {
       editorMode,
     },
 
-    nuxtPrecompress: {
+   /* nuxtPrecompress: {
       enabled: true, // Enable in production
       report: false, // set true to turn one console messages during module init
       test: /\.(js|css|html|txt|xml|svg)$/, // files to compress on build
@@ -183,7 +183,7 @@ export default () => {
         threshold: 10240,
         minRatio: 0.8,
       },
-    },
+    }, */
 
     gtm: {
       // Set by the swell module
