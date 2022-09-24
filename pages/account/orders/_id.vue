@@ -160,7 +160,6 @@
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
                   <a
-                    v-if="order.status === 'complete'"
                     :download="item.product.name"
                     :href="getUrl()"
                   >
