@@ -161,7 +161,7 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    href=process.env.MY_LAMBDA_URL
+                    :href="apiCall()"
                   >
                     <BaseButton
                       fit="auto"
@@ -494,7 +494,7 @@ export default {
     },
   },
   methods: {
-  async function apiCall(parameter) {
+  async function apiCall() {
     const url = `/netlify/functions/geturl.js`;
     try {
         const response = await fetch(url);
