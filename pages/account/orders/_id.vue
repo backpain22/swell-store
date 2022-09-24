@@ -505,11 +505,11 @@ export default {
 
       const s3 = new AWS.S3();
       const myBucket = process.env.AWS_S3_BUCKET;
-      const myKey = prodName + '.zip';
+      const myKey = "The Drip Kit.zip";
       const timelimit = 60 * 15;
 
       const url = s3.getSignedUrl('getObject', {
-        Bucket: myBucket,
+        Bucket: "madeforlifemusicuswest",
         Key: myKey,
         Expires: timelimit,
       });
