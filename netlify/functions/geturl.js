@@ -9,7 +9,7 @@ exports.handler = async function (event, context) {
       });
 
       const s3 = new AWS.S3();
-      const myBucket = madeforlifemusicuswest;
+      const myBucket = "madeforlifemusicuswest";
       const myKey = 'The Drip Kit.zip';
       const timelimit = 60 * 15;
 
