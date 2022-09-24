@@ -503,7 +503,6 @@ export default {
         signatureVersion: 'v4',
       });
       
-      export AWS_SDK_LOAD_CONFIG=1;
 
       const s3 = new AWS.S3();
       const myBucket = "madeforlifemusicuswest";
