@@ -495,7 +495,7 @@ export default {
   },
   methods: {
   async apiCall() {
-    const url = `/netlify/functions/geturl.js`;
+    const url = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
     try {
         const response = await fetch(url);
         const data = await response.text();
