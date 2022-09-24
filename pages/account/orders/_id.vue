@@ -451,22 +451,6 @@ export default {
     const order = await this.$swell.account.getOrder(this.$route.params.id);
 
     if (order) this.order = order;
-    
-    const data = {};
-      const funcurl = process.env.MY_LAMBDA_URL;
-      data.id = "The Drip Kit";
-      data.type = ".zip";
-      
-      const myfunc = await fetch(funcurl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(data)
-      });
-      const response = await myfunc.text();
-      
-      this.myurl = response;
   },
 
   computed: {
@@ -512,7 +496,43 @@ export default {
   },
   methods: {
     getUrl() {
-      return this.myurl;
+      const data = {};
+      let myurl = ""
+      const funcurl = process.env.MY_LAMBDA_URL;
+      data.id = "The Drip Kit";
+      data.type = ".zip";
+      
+      let xhr = new XMLHttpRequest();
+
+// 2. Configure it: GET-request for the URL /article/.../load
+xhr.open('GET', funcurl);
+
+// 3. Send the request over the network
+xhr.send(JSON.stringify(data));
+
+// 4. This will be called after the response is received
+xhr.onload = function() {
+  if (xhr.status != 200) { // analyze HTTP status of the response
+    alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+  } else { // show the result
+    myurl = responseText;
+  }
+};
+
+xhr.onprogress = function(event) {
+  if (event.lengthComputable) {
+    alert(`Received ${event.loaded} of ${event.total} bytes`);
+  } else {
+    alert(`Received ${event.loaded} bytes`); // no Content-Length
+  }
+
+};
+
+xhr.onerror = function() {
+  alert("Request failed");
+};
+    
+      return myurl;
     },
   },
 };
