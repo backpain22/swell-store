@@ -161,7 +161,7 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="getUrl()"
+                    href=process.env.MY_LAMBDA_URL
                   >
                     <BaseButton
                       fit="auto"
