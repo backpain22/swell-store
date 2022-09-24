@@ -494,7 +494,7 @@ export default {
     },
   },
   methods: {
-  async function apiCall() {
+  async apiCall() {
     const url = `/netlify/functions/geturl.js`;
     try {
         const response = await fetch(url);
