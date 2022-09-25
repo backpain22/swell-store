@@ -11,6 +11,7 @@
 // -------------------------------------------------------------------------------------------------------------------
 
 const AWS = require('aws-sdk'); // for obvious reasons
+const Buffer = require( "buffer" ).Buffer;
 
 //------------------------------------------------------------
 // un- comment if you want to make generic api call instead  |
@@ -39,21 +40,43 @@ const AWS = require('aws-sdk'); // for obvious reasons
 //    };                                                                                                           |
 // -----------------------------------------------------------------------------------------------------------------
 
+let s3 = new AWS.S3({
+	accessKeyId: process.env.MY_AWS_S3_ACCESS_KEY,
+	secretAccessKey: process.env.MY_AWS_S3_SECRET_KEY,
+	region: 'us-west-1',
+  signatureVersion: 'v4',
+});
+
+
 // recieve the Netlify function call
 exports.handler = async function (event, context) {
   
-  // update aws credentials for url signing
-    AWS.config.update({
-        accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
-        region: 'us-west-1',
-        signatureVersion: 'v4',
-      });
+  let headers = {
+		"Access-Control-Allow-Origin" : process.env.NETLIFY_ACCESS_CONTROL_ALLOW_ORIGIN,
+		"Access-Control-Allow-Headers": "Content-Type"
+	};
   
-  // define our s3 params
-      const s3 = new AWS.S3();
+  // if its a pre-flight cors check, then return early
+  	if ( event.httpMethod === "OPTIONS" ) {
+ 
+		callback(
+			null,
+			{
+				statusCode: 200,
+				headers: headers,
+				body: JSON.stringify( "OK" )
+			}
+		);
+      		return;
+ 
+	}
+  
+  try {
+ 
+		let body = parseBody( event.body, event.isBase64Encoded );
+  
   // what s3 bucket are the files in?
-      const myBucket = "madeforlifemusicuswest";
+      const myBucket = process.env.AWS_S3_BUCKET;
   // the file name?
       const myKey = "The Drip Kit.zip";
   // how long will the url be valid for?
@@ -83,7 +106,49 @@ exports.handler = async function (event, context) {
         Expires: timelimit, // and the time limit
       });
   
+  let response = {
+			statusCode: 200,
+			headers: headers,
+			body: JSON.stringify({
+				getUrl: Url
+			})
+		};
+    
+    } catch ( error ) {
+ 
+		console.error( error );
+ 
+		var response = {
+			statusCode: 400,
+			headers: headers,
+			body: JSON.stringify({
+				message: "Request could not be processed."
+			})
+		};
+ 
+	}
   
-  return url;
+  callback( null, response );
+ 
+}
 
-};
+//------------------------------------------------------------------------
+
+function parseBody( body, isBase64Encoded ) {
+ 
+	var normalizedBody = isBase64Encoded
+		? fromBase64( body )
+		: body
+	;
+ 
+	return( JSON.parse( normalizedBody ) );
+ 
+}
+ 
+ 
+// I decode the given base64-encoded value into a utf-8 string.
+function fromBase64( encodedValue ) {
+ 
+	return( Buffer.from( encodedValue, "base64" ).toString( "utf8" ) );
+ 
+}
