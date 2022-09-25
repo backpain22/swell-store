@@ -49,7 +49,7 @@ let s3 = new AWS.S3({
 
 
 // recieve the Netlify function call
-exports.handler = async function (event, context) {
+exports.handler = async function (event, context, callback) {
   
   let headers = {
 		"Access-Control-Allow-Origin" : process.env.NETLIFY_ACCESS_CONTROL_ALLOW_ORIGIN,
