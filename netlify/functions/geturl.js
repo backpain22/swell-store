@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------------------------------------------------------
-// A Netlify serverless function to fetch a presigned url for time limited access to a file stored in a private      |
-// Amazon s3 bucket. The purpose is that by offloading this code to a function we are taking it out of the browser   |
+// Multi use Netlify serverless function template to fetch data across a network, such as an aws sr bucket, without  |
+// exposing secrets. The purpose is that by offloading this code to a function we are taking it out of the browser   |
 // (aka client side), where it would more or less be publicly available(including the sensitive info like secret     |
 // access keys), and moving it to the server (aka server side), where it is safe from prying eyes. Remember to use   |
 // process.env.MY_ENVIRONMENT_VAR otherwise your sensitive info will still be exposed via your github repo.          |
@@ -11,7 +11,12 @@
 // -------------------------------------------------------------------------------------------------------------------
 
 const AWS = require('aws-sdk'); // for obvious reasons
-const axios = require("axios"); // for fetching the data across the network
+
+//------------------------------------------------------------
+// un- comment if you want to make generic api call instead  |
+//------------------------------------------------------------
+// const axios = require("axios");                           |
+//------------------------------------------------------------
 
 // -----------------------------------------------------------------------------------------------------------------
 // note axios is not necessary, Im using it out of preference, you could use plain xmlhttprequest like so...       |
@@ -50,39 +55,44 @@ exports.handler = async function (event, context) {
   // what s3 bucket are the files in?
       const myBucket = "madeforlifemusicuswest";
   // the file name?
-      const myKey = 'The Drip Kit.zip';
+      const myKey = event.id + '.zip'; // dynamic, gets passed as json key string in the event body
   // how long will the url be valid for?
-      const timelimit = 60 * 15;
+      const timelimit = 60 * 15; // 15 minutes
 
+  // stringify the response so we dont get errors
   const pass = (body) => {callback( null, {
     statusCode: 200,
     body: JSON.stringify(body)
-  })}
+  })};
 
-  // Perform the API call.
-  const get = () => {
-    axios.get(URL)
-      .then((response) =>
-      {
-      console.log(response.data)
-      pass(response.data)
-    };
+ //--------------------------------------------------
+ // use this code to Perform an API call.           |
+ //--------------------------------------------------
+ // const get = () => {                             |
+ //   axios.get(URL)                                |
+ //     .then((response) =>                         |
+ //     {                                           |
+ //     console.log(response.data)                  |
+ //     pass(response.data)                         |
+ //   };                                            |
+ // -------------------------------------------------
 
-      const s3 = new AWS.S3();
-      const myBucket = "madeforlifemusicuswest";
-      const myKey = 'The Drip Kit.zip';
-      const timelimit = 60 * 15;
-
+  //-------------------------------------------------
+  // Instead we are using aws-sdk                   |
+  // ------------------------------------------------
+  
+  // call the function to sign the url
       const url = s3.getSignedUrl('getObject', {
-        Bucket: myBucket,
-        Key: myKey,
-        Expires: timelimit,
+        Bucket: myBucket, // pass in the vars for the s3 bucket
+        Key: myKey, // and the file name
+        Expires: timelimit, // and the time limit
       });
   
+  // format the url as json to send back ro client
       const jsonurl = {};
       jsonurl.url = url;
-      const myurl = JSON.stringify(jsonurl);
+  
+  // send the url
+  pass(jsonurl);
 
-      return myurl;
-
-  };
+};
