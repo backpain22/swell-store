@@ -160,6 +160,7 @@
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
                   <a
+                    v-if="order.paid"
                     :download="item.product.name"
                     :href="apiCall(item.product.name)"
                   >
