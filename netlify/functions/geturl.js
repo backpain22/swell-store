@@ -55,7 +55,7 @@ exports.handler = async function (event, context) {
   // what s3 bucket are the files in?
       const myBucket = "madeforlifemusicuswest";
   // the file name?
-      const myKey = event.id + '.zip'; // dynamic, gets passed as json key string in the event body
+      const myKey = JSON.parse(event.body); // dynamic, gets passed as json key string in the event body
   // how long will the url be valid for?
       const timelimit = 60 * 15; // 15 minutes
 
