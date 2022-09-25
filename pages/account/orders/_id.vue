@@ -502,7 +502,7 @@ export default {
     const json = JSON.stringify(myjson);
     try {
         const response = await fetch(url, {
-           method: 'GET',
+           method: 'POST',
            body: json 
        });
         const data = await response.text();
