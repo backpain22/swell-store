@@ -161,7 +161,7 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="apiCall()"
+                    :href="apiCall(item.product.name)"
                   >
                     <BaseButton
                       fit="auto"
@@ -494,10 +494,16 @@ export default {
     },
   },
   methods: {
-  async apiCall() {
+  async apiCall(prodName) {
     const url = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
+    const myjson = {};
+    myjson.mykey = prodName + '.zip';
+    const json = JSON.stringify(myjson);
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+           method: 'GET',
+           body: json 
+       });
         const data = await response.text();
         return data;
     } catch (err) {
