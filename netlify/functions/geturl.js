@@ -59,11 +59,6 @@ exports.handler = async function (event, context) {
   // how long will the url be valid for?
       const timelimit = 60 * 15; // 15 minutes
 
-  // stringify the response so we dont get errors
-  const pass = (body) => {callback( null, {
-    statusCode: 200,
-    body: JSON.stringify(body)
-  })};
 
  //--------------------------------------------------
  // use this code to Perform an API call.           |
@@ -92,8 +87,6 @@ exports.handler = async function (event, context) {
       const jsonurl = {};
       jsonurl.url = url;
   
-  // send the url
-  pass(jsonurl);
   
   return url;
 
