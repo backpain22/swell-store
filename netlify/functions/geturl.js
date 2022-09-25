@@ -18,7 +18,11 @@ exports.handler = async function (event, context) {
         Key: myKey,
         Expires: timelimit,
       });
+  
+      const jsonurl = {};
+      jsonurl.url = url;
+      const myurl = JSON.stringify(jsonurl);
 
-      return url;
+      return myurl;
 
   };
