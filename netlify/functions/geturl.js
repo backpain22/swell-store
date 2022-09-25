@@ -110,7 +110,7 @@ exports.handler = function (event, context, callback) {
 			statusCode: 200,
 			headers: headers,
 			body: JSON.stringify({
-				getUrl: Url
+				getUrl: url
 			})
 		};
     
