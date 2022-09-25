@@ -83,10 +83,6 @@ exports.handler = async function (event, context) {
         Expires: timelimit, // and the time limit
       });
   
-  // format the url as json to send back ro client
-      const jsonurl = {};
-      jsonurl.url = url;
-  
   
   return url;
 
