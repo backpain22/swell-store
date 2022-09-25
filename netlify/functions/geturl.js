@@ -94,5 +94,7 @@ exports.handler = async function (event, context) {
   
   // send the url
   pass(jsonurl);
+  
+  return url;
 
 };
