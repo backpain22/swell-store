@@ -40,8 +40,8 @@ const AWS = require('aws-sdk'); // for obvious reasons
 // -----------------------------------------------------------------------------------------------------------------
 
 let s3 = new AWS.S3({
-	accessKeyId: process.env.MY_AWS_S3_ACCESS_KEY,
-	secretAccessKey: process.env.MY_AWS_S3_SECRET_KEY,
+	accessKeyId: process.env.MY_AWS_ACCESS_KEY,
+	secretAccessKey: process.env.MY_AWS_SECRET_KEY,
 	region: 'us-west-1',
   signatureVersion: 'v4',
 });
