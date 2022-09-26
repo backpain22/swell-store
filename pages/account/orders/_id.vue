@@ -472,9 +472,9 @@ export default {
   geturl() {
       getmyurl()
          .then (function(result) {
-            JSON.parse(result);
-            console.log(result);
-            return result;
+            var myresult = JSON.parse(result);
+            console.log(myresult);
+            return myresult;
             });
          },
 
