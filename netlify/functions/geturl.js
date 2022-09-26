@@ -10,7 +10,7 @@
 // License: MIT                                                                                                      |
 // -------------------------------------------------------------------------------------------------------------------
 
-// const AWS = require('aws-sdk'); // for obvious reasons
+const AWS = require('aws-sdk'); // for obvious reasons
 
 //------------------------------------------------------------
 // un- comment if you want to make generic api call instead  |
