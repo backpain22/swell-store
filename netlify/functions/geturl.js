@@ -11,7 +11,6 @@
 // -------------------------------------------------------------------------------------------------------------------
 
 const AWS = require('aws-sdk'); // for obvious reasons
-const Buffer = require( "buffer" ).Buffer;
 
 //------------------------------------------------------------
 // un- comment if you want to make generic api call instead  |
@@ -72,8 +71,6 @@ exports.handler = function (event, context, callback) {
 	}
   
   try {
- 
-		let body = parseBody( event.body, event.isBase64Encoded );
   
   // what s3 bucket are the files in?
       const myBucket = process.env.AWS_S3_BUCKET;
@@ -132,23 +129,3 @@ exports.handler = function (event, context, callback) {
  
 }
 
-//------------------------------------------------------------------------
-
-function parseBody( body, isBase64Encoded ) {
- 
-	var normalizedBody = isBase64Encoded
-		? fromBase64( body )
-		: body
-	;
- 
-	return( JSON.parse( normalizedBody ) );
- 
-}
- 
- 
-// I decode the given base64-encoded value into a utf-8 string.
-function fromBase64( encodedValue ) {
- 
-	return( Buffer.from( encodedValue, "base64" ).toString( "utf8" ) );
- 
-}
