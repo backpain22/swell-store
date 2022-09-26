@@ -137,6 +137,7 @@ exports.handler = function( event, context, callback ) {
 	// from a different port. As such, we need to have the CORS headers locally. In
 	// order to keep things simple, we're just going to include them in both places.
 	var headers = {
+    "Access-Control-Allow-Origin" : "*"
 		"Access-Control-Allow-Headers": "Content-Type"
 	};
  
