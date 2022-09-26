@@ -161,7 +161,13 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="geturl()"
+                    :href="getmyurl()
+                              .then(function(v) {
+                              return JSON.parse(v);
+                              })
+                              .catch(function(v) {
+                              console.log(rejected);
+                              });"
                   >
                       <BaseButton
                         v-if="order.status === 'complete'"
