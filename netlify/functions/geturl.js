@@ -10,7 +10,7 @@
 // License: MIT                                                                                                      |
 // -------------------------------------------------------------------------------------------------------------------
 
-const AWS = require('aws-sdk'); // for obvious reasons
+// const AWS = require('aws-sdk'); // for obvious reasons
 
 //------------------------------------------------------------
 // un- comment if you want to make generic api call instead  |
@@ -48,7 +48,7 @@ let s3 = new AWS.S3({
 
 
 // recieve the Netlify function call
-exports.handler = function (event, context, callback) {
+/* exports.handler = function (event, context, callback) {
   
   let headers = {
 		"Access-Control-Allow-Origin" : process.env.NETLIFY_ACCESS_CONTROL_ALLOW_ORIGIN,
@@ -124,5 +124,78 @@ exports.handler = function (event, context, callback) {
   
   callback( null, response );
  
-};
+}; */
 
+
+exports.handler = function( event, context, callback ) {
+ 
+	// NOTE: In production (on Netlify), we shouldn't need to deal with CORS headers
+	// since the Functions folder is a sub-folder of the Netlify site (same origin).
+	// However, in local development, the "netlify-lambda" script serves the Functions
+	// from a different port. As such, we need to have the CORS headers locally. In
+	// order to keep things simple, we're just going to include them in both places.
+	var headers = {
+		"Access-Control-Allow-Origin" : "*",
+		"Access-Control-Allow-Headers": "Content-Type"
+	};
+ 
+	// In the case of a CORS preflight check, just return early.
+	if ( event.httpMethod === "OPTIONS" ) {
+ 
+		callback(
+			null,
+			{
+				statusCode: 200,
+				headers: headers,
+				body: JSON.stringify( "OK" )
+			}
+		);
+		return;
+ 
+	}
+ 
+	try {
+ 
+		var body = parseBody( event.body, event.isBase64Encoded );
+ 
+		var resourceKey = 'The Drip Kit.zip'
+ 
+		// The GET operation will only be valid for the next 60-minutes.
+		// --
+		// NOTE: Even though the full GET operation is only valid for a week, we can
+		// tell the browser to cache the response for longer using the cache-control
+		// header (which we are defining via the ResponseCacheControl override).
+		var getParams = {
+			Bucket: process.env.AWS_S3_BUCKET,
+			Key: resourceKey,
+			Expires: ( 60 * 60 ),
+			ResponseCacheControl: "max-age=604800"
+		};
+ 
+		var getUrl = s3.getSignedUrl( "getObject", getParams );
+ 
+		var response = {
+			statusCode: 200,
+			headers: headers,
+			body: JSON.stringify({
+				getUrl: getUrl
+			})
+		};
+ 
+	} catch ( error ) {
+ 
+		console.error( error );
+ 
+		var response = {
+			statusCode: 400,
+			headers: headers,
+			body: JSON.stringify({
+				message: "Request could not be processed."
+			})
+		};
+ 
+	}
+ 
+	callback( null, response );
+ 
+}
