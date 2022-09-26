@@ -137,7 +137,7 @@ export default {
     
     const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
     const myjson = {};
-    myjson.mykey = vm.prodname;
+    myjson.mykey = vm.prodname + '.zip';
     const json = JSON.stringify(myjson);
     try {
         const response = await fetch(theurl, {
