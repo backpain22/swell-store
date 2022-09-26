@@ -474,16 +474,6 @@ export default {
           });
         },
 
-  
-  geturl() {
-      getmyurl()
-         .then (function(result) {
-            const myresult = JSON.parse(result);
-            console.log(myresult);
-            return myresult;
-            });
-         },
-
   computed: {
     shipping() {
       return this.order.shipping;
