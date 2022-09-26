@@ -454,7 +454,7 @@ export default {
   },
   
   methods: {
-    function getmyurl() {
+    getmyurl() {
         return new Promise(function(resolve, reject) {
            var xhr = new XMLHttpRequest();
            const url = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
