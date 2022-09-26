@@ -159,17 +159,6 @@
                   <p class="pt-2 font-semibold">
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
-                  <a
-                    :download="item.product.name"
-                    :href="getmyurl('https://www.madeforlifemusic.com/.netlify/functions/geturl')"
-                  >
-                      <BaseButton
-                        v-if="order.status === 'complete'"
-                        fit="auto"
-                        appearance="light"
-                        label="Download"
-                      />
-                   </a>
                 </div>
               </div>
             </div>
@@ -452,22 +441,6 @@ export default {
 
     if (order) this.order = order;
   },
-  
-  methods: {
-    getmyurl(url) {
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState == 4 && xhr.status == 200)
-        {
-           return xhr.responseText;
-        }
-    }
-
-   xhr.open("GET", url, true);
-   xhr.send();
-   return xhr.onreadystatechange();
-        },
 
   computed: {
     shipping() {
