@@ -456,7 +456,7 @@ export default {
   methods: {
     getmyurl() {
         return new Promise(function(resolve, reject) {
-           var xhr = new XMLHttpRequest();
+           const xhr = new XMLHttpRequest();
            const url = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
            
            xhr.onload = function() {
@@ -472,7 +472,7 @@ export default {
   geturl() {
       getmyurl()
          .then (function(result) {
-            var myresult = JSON.parse(result);
+            const myresult = JSON.parse(result);
             console.log(myresult);
             return myresult;
             });
