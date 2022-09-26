@@ -161,7 +161,7 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="getmyurl(https://www.madeforlifemusic.com/.netlify/functions/geturl)"
+                    :href="getmyurl('https://www.madeforlifemusic.com/.netlify/functions/geturl')"
                   >
                       <BaseButton
                         v-if="order.status === 'complete'"
