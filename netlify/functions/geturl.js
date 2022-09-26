@@ -105,9 +105,7 @@ exports.handler = function (event, context, callback) {
   
   let response = {
 			statusCode: 200,
-			body: JSON.stringify({
-				url: url
-			})
+			body: JSON.stringify(url)
 		}
     
    } catch ( error ) {
