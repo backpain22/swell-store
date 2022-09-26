@@ -472,33 +472,7 @@ export default {
           };
        };
        return myurl
-};
-
-xhr.onprogress = function(event) {
-  if (event.lengthComputable) {
-    alert(`Received ${event.loaded} of ${event.total} bytes`);
-  } else {
-    alert(`Received ${event.loaded} bytes`); // no Content-Length
-  }
-
-};
-
-xhr.onerror = function() {
-  alert("Request failed");
-};
-    try {
-        const response = await fetch(theurl, {
-           method: 'GET',
-       });
-        const data = await response.json();
-        myurl = data.url;
-    } catch (err) {
-        console.log(err);
-    }
   },
-  
-  return myurl;
-},
 
   computed: {
     shipping() {
