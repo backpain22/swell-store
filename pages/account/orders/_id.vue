@@ -441,28 +441,8 @@ export default {
 
   data() {
     return {
-      order: null,
-      dataready: false,
-      myurl: null
+      order: null
     };
-  },
-  
-  async mounted() {
-   const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
-  //  const myjson = {};
-  //  myjson.mykey = 'The Drip Kit.zip';
-  //  const json = JSON.stringify(myjson);
-    try {
-        const response = await fetch(theurl, {
-           method: 'GET',
-      //     body: json 
-       });
-        const data = await response.json();
-        this.dataready = true;
-        this.myurl = data.url;
-    } catch (err) {
-        console.log(err);
-    }
   },
 
   async fetch() {
@@ -472,10 +452,21 @@ export default {
   },
   
   methods: {
-    getmyurl() {
-      return this.myurl
-     }
-    },
+  async getmyurl() {
+   const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
+    try {
+        const response = await fetch(theurl, {
+           method: 'GET',
+       });
+        const data = await response.json();
+        myurl = data.url;
+    } catch (err) {
+        console.log(err);
+    }
+  },
+  
+  return myurl;
+},
 
   computed: {
     shipping() {
