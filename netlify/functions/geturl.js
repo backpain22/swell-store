@@ -135,7 +135,6 @@ exports.handler = function( event, context, callback ) {
 	// from a different port. As such, we need to have the CORS headers locally. In
 	// order to keep things simple, we're just going to include them in both places.
 	var headers = {
-		"Access-Control-Allow-Origin" : "*",
 		"Access-Control-Allow-Headers": "Content-Type"
 	};
  
@@ -156,8 +155,6 @@ exports.handler = function( event, context, callback ) {
  
 	try {
  
-		var body = parseBody( event.body, event.isBase64Encoded );
- 
 		var resourceKey = 'The Drip Kit.zip'
  
 		// The GET operation will only be valid for the next 60-minutes.
@@ -166,7 +163,7 @@ exports.handler = function( event, context, callback ) {
 		// tell the browser to cache the response for longer using the cache-control
 		// header (which we are defining via the ResponseCacheControl override).
 		var getParams = {
-			Bucket: process.env.AWS_S3_BUCKET,
+			Bucket: "madeforlifemusicuswest",
 			Key: resourceKey,
 			Expires: ( 60 * 60 ),
 			ResponseCacheControl: "max-age=604800"
