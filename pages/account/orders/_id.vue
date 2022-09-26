@@ -161,8 +161,7 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="link"
-                    @click="getmyurl()"
+                    :href="getmyurl()"
                   >
                       <BaseButton
                         v-if="order.status === 'complete'"
@@ -461,7 +460,7 @@ export default {
       let xhr = new XMLHttpRequest();
 
 // 2. Configure it: GET-request for the URL /article/.../load
-        xhr.open('GET', theurl, false);
+        xhr.open('GET', theurl);
 
 // 3. Send the request over the network
         xhr.send();
@@ -471,7 +470,7 @@ export default {
           if (xhr.status != 200) { // analyze HTTP status of the response
             alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
           } else { // show the result
-             this.link = xhr.response.getUrl
+            myurl = xhr.response.getUrl
           };
        };
        return myurl
