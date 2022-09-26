@@ -159,17 +159,13 @@
                   <p class="pt-2 font-semibold">
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
-                  <a
-                    v-if="order.paid"
-                    :download="item.product.name"
-                    :href="apiCall(item.product.name)"
-                  >
-                    <BaseButton
+                    <productButton
+                      vif="order.paid"
                       fit="auto"
                       appearance="light"
                       label="Download"
+                      :prodname="item.product.name"
                     />
-                  </a>
                 </div>
               </div>
             </div>
@@ -435,7 +431,6 @@
 <script>
 // Helpers
 import padStart from 'lodash/padStart';
-import AWS from 'aws-sdk';
 
 export default {
   name: 'Order',
@@ -494,24 +489,5 @@ export default {
       }
     },
   },
-  methods: {
-  async apiCall(prodName) {
-    const url = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
-    const myjson = {};
-    myjson.mykey = prodName + '.zip';
-    const json = JSON.stringify(myjson);
-    try {
-        const response = await fetch(url, {
-           method: 'POST',
-           body: json 
-       });
-        const data = await response.text();
-        return data;
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-    },
 };
 </script>
