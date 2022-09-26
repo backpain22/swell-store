@@ -452,8 +452,40 @@ export default {
   },
   
   methods: {
-  async getmyurl() {
-   const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
+    getmyurl() {
+      let myurl = "";
+      const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
+      let xhr = new XMLHttpRequest();
+
+// 2. Configure it: GET-request for the URL /article/.../load
+        xhr.open('GET', theurl);
+
+// 3. Send the request over the network
+        xhr.send();
+
+// 4. This will be called after the response is received
+        xhr.onload = function() {
+          if (xhr.status != 200) { // analyze HTTP status of the response
+            alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+          } else { // show the result
+             myurl = xhr.response.url
+          };
+       };
+       return myurl
+};
+
+xhr.onprogress = function(event) {
+  if (event.lengthComputable) {
+    alert(`Received ${event.loaded} of ${event.total} bytes`);
+  } else {
+    alert(`Received ${event.loaded} bytes`); // no Content-Length
+  }
+
+};
+
+xhr.onerror = function() {
+  alert("Request failed");
+};
     try {
         const response = await fetch(theurl, {
            method: 'GET',
