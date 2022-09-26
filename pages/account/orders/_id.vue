@@ -164,7 +164,6 @@
                     :href="getmyurl()"
                   >
                       <BaseButton
-                        v-if="dataready"
                         fit="auto"
                         appearance="light"
                         label="Download"
@@ -449,8 +448,6 @@ export default {
   },
   
   async mounted() {
-  
-  vm = this;
    const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
     const myjson = {};
     myjson.mykey = 'The Drip Kit.zip';
@@ -461,8 +458,8 @@ export default {
            body: json 
        });
         const data = await response.json();
-        vm.dataready = true;
-        vm.myurl = data.url;
+        this.dataready = true;
+        this.myurl = data.url;
     } catch (err) {
         console.log(err);
     }
