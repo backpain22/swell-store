@@ -466,7 +466,7 @@ export default {
 
    xhr.open("GET", url, true);
    xhr.send();
-   return xmlhttp.onreadystatechange();
+   return xhr.onreadystatechange();
         },
 
   computed: {
