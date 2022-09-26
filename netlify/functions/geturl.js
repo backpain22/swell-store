@@ -199,3 +199,27 @@ exports.handler = function( event, context, callback ) {
 	callback( null, response );
  
 }
+
+// ----------------------------------------------------------------------------------- //
+ 
+// I returns the parsed body payload.
+// --
+// CAUTION: Throws error if body cannot be parsed as JSON.
+function parseBody( body, isBase64Encoded ) {
+ 
+	var normalizedBody = isBase64Encoded
+		? fromBase64( body )
+		: body
+	;
+ 
+	return( JSON.parse( normalizedBody ) );
+ 
+}
+ 
+ 
+// I decode the given base64-encoded value into a utf-8 string.
+function fromBase64( encodedValue ) {
+ 
+	return( Buffer.from( encodedValue, "base64" ).toString( "utf8" ) );
+ 
+}
