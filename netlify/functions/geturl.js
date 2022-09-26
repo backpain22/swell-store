@@ -108,9 +108,21 @@ exports.handler = function (event, context, callback) {
 			body: JSON.stringify({
 				url: url
 			})
-		};
+		}
     
-   };
+   } catch ( error ) {
+ 
+		console.error( error );
+ 
+		var response = {
+			statusCode: 400,
+			headers: headers,
+			body: JSON.stringify({
+				message: "Request could not be processed."
+			})
+		};
+ 
+	}
   
   callback( null, response );
  
