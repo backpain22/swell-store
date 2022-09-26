@@ -225,6 +225,8 @@
                 />
 
                 <!-- Add to cart -->
+                
+                <a href="https://transactions.sendowl.com/products/78771068/A7AA618A/purchase" rel="nofollow">
                 <button
                   :class="{
                     loading: cartIsUpdating,
@@ -294,6 +296,7 @@
                     <span>{{ $t('products.slug.updating') }}</span>
                   </div>
                 </button>
+                </a>
               </div>
             </div>
             <!-- END Purchase form -->
