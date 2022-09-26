@@ -161,7 +161,8 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="getmyurl()"
+                    :href="link"
+                    @click="getmyurl()"
                   >
                       <BaseButton
                         v-if="order.status === 'complete'"
@@ -442,7 +443,8 @@ export default {
 
   data() {
     return {
-      order: null
+      order: null,
+      link: null
     };
   },
 
@@ -469,7 +471,7 @@ export default {
           if (xhr.status != 200) { // analyze HTTP status of the response
             alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
           } else { // show the result
-             myurl = xhr.response.Geturl
+             this.link = xhr.response.getUrl
           };
        };
        return myurl
