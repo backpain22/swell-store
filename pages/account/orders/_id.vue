@@ -449,13 +449,13 @@ export default {
   
   async mounted() {
    const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
-    const myjson = {};
-    myjson.mykey = 'The Drip Kit.zip';
-    const json = JSON.stringify(myjson);
+  //  const myjson = {};
+  //  myjson.mykey = 'The Drip Kit.zip';
+  //  const json = JSON.stringify(myjson);
     try {
         const response = await fetch(theurl, {
-           method: 'POST',
-           body: json 
+           method: 'GET',
+      //     body: json 
        });
         const data = await response.json();
         this.dataready = true;
