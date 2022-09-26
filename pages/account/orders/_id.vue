@@ -160,10 +160,11 @@
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
                   <a
-                    v-if="order.paid"
+                    :download="item.product.name"
                     :href="getmyurl()"
                   >
                       <BaseButton
+                        v-if="order.status === 'complete'"
                         fit="auto"
                         appearance="light"
                         label="Download"
