@@ -161,13 +161,7 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="getmyurl()
-                              .then(function(v) {
-                              return JSON.parse(v);
-                              })
-                              .catch(function(v) {
-                              console.log(rejected);
-                              });"
+                    :href="getmyurl()"
                   >
                       <BaseButton
                         v-if="order.status === 'complete'"
@@ -460,18 +454,18 @@ export default {
   },
   
   methods: {
-    getmyurl() {
-        return new Promise(function(resolve, reject) {
-           const xhr = new XMLHttpRequest();
-           const url = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
-           
-           xhr.onload = function() {
-              resolve(this.response);
-           };
-           xhr.onerror = reject;
-           xhr.open('GET', url);
-           xhr.send();
-          });
+    getmyurl(url) {
+        xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState == 4 && xhr.status == 200)
+        {
+           return xhr.responseText;
+        }
+    }
+
+   xhr.open("GET", url, true);
+   xhr.send();
+   return xmlhttp.onreadystatechange();
         },
 
   computed: {
