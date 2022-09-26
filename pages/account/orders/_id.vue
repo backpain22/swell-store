@@ -161,7 +161,7 @@
                   </p>
                   <a
                     :download="item.product.name"
-                    :href="getmyurl()"
+                    :href="geturl()"
                   >
                       <BaseButton
                         v-if="order.status === 'complete'"
@@ -454,27 +454,29 @@ export default {
   },
   
   methods: {
-    getmyurl() {
-      let myurl = "";
-      const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
-      let xhr = new XMLHttpRequest();
+    function getmyurl() {
+        return new Promise(function(resolve, reject) {
+           var xhr = new XMLHttpRequest();
+           const url = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
+           
+           xhr.onload = function() {
+              resolve(this.response);
+           };
+           xhr.onerror = reject;
+           xhr.open('GET', url);
+           xhr.send();
+          });
+        }
 
-// 2. Configure it: GET-request for the URL /article/.../load
-        xhr.open('GET', theurl);
-
-// 3. Send the request over the network
-        xhr.send();
-
-// 4. This will be called after the response is received
-        xhr.onload = function() {
-          if (xhr.status != 200) { // analyze HTTP status of the response
-            alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-          } else { // show the result
-            myurl = xhr.response.getUrl
-          };
-       };
-       return myurl
-  },
+  
+  geturl() {
+      getmyurl()
+         .then (function(result) {
+            JSON.parse(result);
+            console.log(result);
+            return result;
+            });
+         },
 
   computed: {
     shipping() {
