@@ -159,13 +159,17 @@
                   <p class="pt-2 font-semibold">
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
-                    <productButton
-                      vif="order.paid"
-                      fit="auto"
-                      appearance="light"
-                      label="Download"
-                      :prodname="item.product.name"
-                    />
+                  <a
+                    v-if="order.paid"
+                    :href="getmyurl()"
+                  >
+                      <BaseButton
+                        v-if="dataready"
+                        fit="auto"
+                        appearance="light"
+                        label="Download"
+                      />
+                   </a>
                 </div>
               </div>
             </div>
@@ -439,7 +443,29 @@ export default {
   data() {
     return {
       order: null,
+      dataready: false,
+      myurl: null
     };
+  },
+  
+  async mounted() {
+  
+  vm = this;
+   const theurl = `https://www.madeforlifemusic.com/.netlify/functions/geturl`;
+    const myjson = {};
+    myjson.mykey = 'The Drip Kit.zip';
+    const json = JSON.stringify(myjson);
+    try {
+        const response = await fetch(theurl, {
+           method: 'POST',
+           body: json 
+       });
+        const data = await response.json();
+        vm.dataready = true;
+        vm.myurl = data.url;
+    } catch (err) {
+        console.log(err);
+    }
   },
 
   async fetch() {
@@ -447,6 +473,12 @@ export default {
 
     if (order) this.order = order;
   },
+  
+  methods: {
+    getmyurl() {
+      return this.myurl
+     }
+    },
 
   computed: {
     shipping() {
