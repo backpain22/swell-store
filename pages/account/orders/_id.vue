@@ -466,7 +466,7 @@ export default {
            xhr.open('GET', url);
            xhr.send();
           });
-        }
+        },
 
   
   geturl() {
