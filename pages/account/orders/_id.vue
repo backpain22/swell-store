@@ -156,7 +156,7 @@
                       </p>
                     </div>
                   </div>
-                  <p class="pt-2 font-semibold">
+                  <p class="pt-2 font-semibold" id="dlbuttonsibling">
                     {{ formatMoney(item.priceTotal, order.currency) }}
                   </p>
                 </div>
@@ -441,6 +441,32 @@ export default {
 
     if (order) this.order = order;
   },
+  
+  head() {
+    return {
+      script: [
+        {
+          children: 'const dllink = document.createElement("a");
+                     const dload_btn = document.createElement("button");
+                     var thankyou = document.getElementById('dlbuttonsibling');
+                     thankyou.insertAdjacentElement('afterend', dllink);
+                     dllink.insertAdjacentElement('afterbegin', dload_btn);
+                     dload_btn.innerHTML = "Download";
+                     dllink.setAttribute("download", "TheDripKit");
+                     var xhr = new XMLHttpRequest();
+                     xhr.onreadystatechange = function() {
+                       if (this.readyState == 4 && this.status == 200) {
+                         var myjson = JSON.parse(xhr.response);
+                         dllink.setAttribute("href",  myjson.getUrl );
+                       }
+                     };
+                     xhr.open("GET", "https://www.madeforlifemusic.com/.netlify/functions/geturl", true);
+                     xhr.send();',
+         body: 'true'
+       }
+     ];
+   };
+ },
 
   computed: {
     shipping() {
