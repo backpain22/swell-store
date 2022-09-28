@@ -446,7 +446,7 @@ export default {
     return {
       script: [
         {
-          children: 'const dllink = document.createElement("a");
+          children: "const dllink = document.createElement("a");
                      const dload_btn = document.createElement("button");
                      var thankyou = document.getElementById('dlbuttonsibling');
                      thankyou.insertAdjacentElement('afterend', dllink);
@@ -461,8 +461,8 @@ export default {
                        }
                      };
                      xhr.open("GET", "https://www.madeforlifemusic.com/.netlify/functions/geturl", true);
-                     xhr.send();',
-         body: 'true'
+                     xhr.send();",
+         body: 'true',
        }
      ];
    };
