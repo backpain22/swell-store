@@ -2,3 +2,38 @@
   from = "https://madeforlifemusic.com/*"
   to = "https://www.madeforlifemusic.com/*"
   status = 301
+  
+[[redirects]]
+  from = "https://madeforlifemusic.com/2022/04/10/how-to-buy-rap-beats-online/"
+  to = "https://www.madeforlifemusic.com/how-to-buy-rap-beats-online/"
+  status = 301
+  
+[[redirects]]
+  from = "https://madeforlifemusic.com/sample-packs"
+  to = "https://www.madeforlifemusic.com/categories/"
+  status = 301
+  
+[[redirects]]
+  from = "https://madeforlifemusic.com/2022/04/21/how-to-make-beats/"
+  to = "https://www.madeforlifemusic.com/how-to-make-beats/"
+  status = 301
+  
+[[redirects]]
+  from = "https://madeforlifemusic.com/2022/04/04/type-beat-breakdown-travis-scott/"
+  to = "https://www.madeforlifemusic.com/blog/"
+  status = 301
+  
+[[redirects]]
+  from = "https://madeforlifemusic.com/samples/"
+  to = "https://www.madeforlifemusic.com/categories/"
+  status = 301
+  
+[[redirects]]
+  from = "https://madeforlifemusic.com/sample-packs/*"
+  to = "https://www.madeforlifemusic.com/"
+  status = 301
+  
+[[redirects]]
+  from = "https://madeforlifemusic.com/samples/*"
+  to = "https://www.madeforlifemusic.com/"
+  status = 301
