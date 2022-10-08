@@ -61,6 +61,15 @@ export default {
           async: true,
           body: true,
         },
+        {
+          type: 'text/javascript',
+          inner: "window.LogRocket && window.LogRocket.init('ynnk9e/test');",
+        },
+        {
+          type: 'text/javascript',
+          src: "https://cdn.lr-in-prod.com/LogRocket.min.js",
+          crossorigin: "anonymous",
+        },
       ],
       link: [
         {
