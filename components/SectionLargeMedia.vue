@@ -15,7 +15,7 @@
       <h2 class="mx-auto max-w-160 px-4">
         {{ heading }}
       </h2>
-      <div v-if="description" v-balance-text.children v-html="description" />
+      <p v-if="description" v-balance-text.children v-html="description" />
       <div v-if="image" class="relative xl:mx-12">
         <BaseLink v-if="url" :link="url">
           <VisualMedia
@@ -36,9 +36,9 @@
           :class="{ 'mt-10 lg:mt-12': description || heading }"
         />
       </div>
-      <span v-if="caption" class="label-sm mt-3 inline-block">{{
+      <p v-if="caption" class="label-sm mt-3 inline-block">{{
         caption
-      }}</span>
+      }}</p>
     </div>
   </section>
 </template>
