@@ -1,7 +1,7 @@
 <template>
   <div v-if="sections.length">
     <transition-group name="page-section">
-      <div
+      <p
         v-for="(section, index) in sections"
         :key="`${index}.${section.type}`"
       >
