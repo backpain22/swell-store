@@ -57,7 +57,7 @@
       <!-- Text panel -->
       <template v-else-if="panel.type === 'text'">
         <h2>{{ panel.heading }}</h2>
-        <div
+        <p
           v-balance-text.children
           class="mt-4 whitespace-pre-line"
           v-html="panel.description"
