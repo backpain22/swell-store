@@ -25,7 +25,7 @@
         </h2>
       </div>
 
-      <div
+      <p
         v-if="description"
         :class="{
           'mx-auto md:w-2/3':
